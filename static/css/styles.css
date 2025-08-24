@@ -1,0 +1,100 @@
+h1 {
+    color: green;
+}
+
+.error {
+    color: red;
+}
+
+.block-custom {
+    height: 400px;
+    /* width: 250px; */
+    border: 2px dashed black;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* <- can delete if dont work-> */
+.block-main {
+    height: 800px;
+    border: 2px dashed black;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.block-cataloge {
+    width: 200px;
+    border: 2px dashed black;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.block-part2 {
+    width: 100%;
+    border: 2px dashed black;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.block-custom {
+    height: 100%;
+    border: 2px dashed black;
+    padding: 15px;
+
+}
+
+body main .block-main .block-part2 .block-custom .row-1 {
+    border: 2px dashed black;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+
+body main .block-main .block-part2 .block-custom .row-2 {
+    height: auto;
+    background-color: yellow;
+}
+
+body main .block-main .block-part2 .block-custom .row-3 {
+    height: 70%;
+    background-color: yellowgreen;
+}
+.row-3 {
+    overflow: scroll;
+    height: 100%;   
+}
+.row-4 {
+    border: 2px dashed black;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.block-birck {
+    width: 100%;
+    justify-content: center;
+    border: 2px dashed black;
+    padding: 1px;
+    display: flex;
+}
+
+body main .block-main .block-part2 .block-custom .block-login {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 50%;
+    align-self: center;
+    padding-bottom: 20px;
+    height: 100%;
+}

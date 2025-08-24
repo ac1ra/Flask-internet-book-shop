@@ -1,0 +1,71 @@
+{%extends 'base.html'%}
+{%block title%}Home page{%endblock%}
+{%block content_0%}
+<div class="block-cataloge">Каталог:
+    <div>
+        {%for item in genres%}
+        <p><a href="{{url_for('home',id=item.genre_id)}}"> <button type="button"
+                    style="width: 100%;">{{item.name_genre}}</button></a></p>
+        {%endfor%}
+    </div>
+</div>
+
+{%endblock%}
+{%block content%}
+<div class="row-1">
+    <div class="block-birck" style="width: 50%;">Поиск:</div>
+    <div class="block-birck" style="width: 25%;"><a href="/login">Login</a></div>
+    <div class="block-birck" style="width: 25%;"><a href="/register">Create account</a></div>
+</div>
+<div class="row-2">
+    <div class="block-list">ТОП 3 продаж недели:
+        <div>
+
+        </div>
+    </div>
+</div>
+<div class="row-3">
+    <div class="block-list">Разделы каталога:</div>
+    <div>
+        {%for row in subgenres%}
+        <p><a href="{{url_for('profile',genre_name=row.name_subgenre)}}"> <button type="button"
+                    style="width: 100%;">{{row.genre_id}} -
+                    {{row.name_subgenre}}</button></a></p>
+        {%endfor%}
+    </div>
+    <div>
+        <p><a href="/"> <button type="button" style="width: 100%;">Back</button></a></p>
+    </div>
+    <div>{%for row in books%}
+        <table style="width: 100%;">
+            <thead>
+                <th>id</th>
+                <th>title</th>
+                <th>author</th>
+                <th>genre</th>
+                <th>cover</th>
+                <th>description</th>
+                <th>rating</th>
+                <th>year</th>
+                <th>price</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{row.book_id}}</td> 
+                    <td>{{row.title}}</td> 
+                    <td>{{row.author}}</td>
+                    <td>{{row.genre}}</td>
+                    <td><img src="{{row.cover}}" style="width: 100px;"></td>
+                    <td>{{row.description}}</td>
+                    <td>{{row.rating}}</td>
+                    <td>{{row.year}}</td>
+                    <td>{{row.price}}</td>
+                </tr>
+            </tbody>
+        </table>
+        {%endfor%}
+    </div>
+</div>
+
+<h1>Test Home Page</h1>
+</div>{%endblock%}

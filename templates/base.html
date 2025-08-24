@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <title>{% block title %}My Flask App Practicum{% endblock %}</title>
+
+</head>
+
+<body>
+    <header>
+
+    </header>
+    <main>
+        <div class="block-main">
+            {% block content_0 %}
+            <!-- Место установки Контента -->
+            {% endblock %}
+
+            <div class="block-part2">
+                <div class="block-custom">
+                    {% block content %}
+                    <!-- Место установки Контента -->
+                    {% endblock %}
+                    <div class="row-4">
+                        <div class="block-birck">Контакты</div>
+                        <div class="block-birck">Способ доставки</div>
+                        <div class="block-birck">Способ оплаты</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Flask App Practicum</p>
+    </footer>
+</body>
+
+</html>
