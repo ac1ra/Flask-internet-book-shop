@@ -68,6 +68,13 @@ class Book(db.Model):
         return f"<Book {self.title}>"
 
 
+class CartItem(db.Model):
+    __tablename__ = 'cartitems'
+    id = db.Column(db.Integer, primary_key=True)
+
+    book_id = db.Column(db.Integer, db.ForeignKey('book.book_id'))
+
+
 with app.app_context():
     db.create_all()
 
@@ -147,7 +154,18 @@ def login():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template("dashboard.html", username=current_user.username)
+    books = Book.query.all()
+    return render_template("dashboard.html", username=current_user.username, books=books)
+
+
+@app.route("/cart/<int:book_id>", methods=['POST'])
+@login_required
+def add_to_cart(book_id):
+    book = Book.query.filter(Book.id == book_id)
+    cart_book = CartItem(book=book)
+    db.session.add(cart_book)
+    db.session.commit()
+    return render_template("cart.html", book=book_id)
 
 
 @app.route('/logout')

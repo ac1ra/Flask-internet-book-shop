@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-{%block title%}Home page{%endblock%}
+{%block title%}Trash page{%endblock%}
 {%block content_0%}
 <div class="block-cataloge">Каталог:
     <div>
@@ -9,30 +9,26 @@
         {%endfor%}
     </div>
 </div>
+<!-- <script>
+    function addToCart(productId) {
+        fetch('[your.local.host.]/cart/productId',
+            { method: 'POST' }
+        )
+    }
+</script> -->
 
 {%endblock%}
 {%block content%}
 <div class="row-1">
     <div class="block-birck" style="width: 50%;">Поиск:</div>
-    <div class="block-birck" style="width: 25%;"><a href="/login">Login</a></div>
-    <div class="block-birck" style="width: 25%;"><a href="/register">Create account</a></div>
+    <div class="block-birck" style="width: 25%;"><a href="/login">Заказы:</a></div>
+    <div class="block-birck" style="width: 25%;"><a href="/register">Корзина:</a></div>
 </div>
 <div class="row-2">
-    <div class="block-list">ТОП 3 продаж недели:
-        <div>
 
-        </div>
-    </div>
 </div>
 <div class="row-3">
-    <div class="block-list">Разделы каталога:</div>
-    <div>
-        {%for row in subgenres%}
-        <p><a href="{{url_for('profile',genre_name=row.name_subgenre)}}"> <button type="button"
-                    style="width: 100%;">{{row.genre_id}} -
-                    {{row.name_subgenre}}</button></a></p>
-        {%endfor%}
-    </div>
+
     <div>
         <p><a href="/"> <button type="button" style="width: 100%;">Back</button></a></p>
     </div>
@@ -63,7 +59,8 @@
                     <td>{{row.rating}}</td>
                     <td>{{row.year}}</td>
                     <td>{{row.price}}</td>
-                    <td><input type="checkbox" id="checkbox">
+                    <td><button onclick="{{url_for('add_to_cart',book_id=row.book_id)}}" type="button">Add to
+                            cart</button>
 
                     </td>
                 </tr>
