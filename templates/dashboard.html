@@ -15,7 +15,7 @@
 <div class="row-1">
     <div class="block-birck" style="width: 50%;">Поиск:</div>
     <div class="block-birck" style="width: 50%;">Заказы:</div>
-    <div class="block-birck" style="width: 50%;"><a href="">Корзина:</a></div>
+    <div class="block-birck" style="width: 50%;"><a href="">Корзина({{count}}):</a></div>
     <div class="block-birck"><a href="/logout.html">Выход</a></div>
 </div>
 <div class="row-2">
@@ -60,9 +60,17 @@
                     <td>{{row.rating}}</td>
                     <td>{{row.year}}</td>
                     <td>{{row.price}}</td>
-                    <td><button onclick="{{url_for('dashboard',item=row.book_id)}}" type="button">Add to
-                            cart</button>
+                    <form method="POST">
+                        <td><button onclick="{{row.book_id}}" name="book_id_cart">Add to Cart</button></td>
+                    </form>
+                    <!-- <td><button onclick="{{url_for('dashboard',item=row.book_id)}}" type="button"
+                            name="book_id_cart">Add to
+                            cart</button></td> -->
+                    <!-- <td><button onclick="{{url_for('dashboard',book_id_cart=row.book_id)}}" type="button"
+                            name="book_id_cart">Add to
+                            cart</button></td> -->
                 </tr>
+
             </tbody>
             {%endfor%}
         </div>

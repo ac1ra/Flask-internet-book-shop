@@ -74,6 +74,9 @@ class CartItem(db.Model):
 
     book_id = db.Column(db.Integer, db.ForeignKey('book.book_id'))
 
+    def __repr__(self):
+        return f"<Cart {self.book_id}>"
+
 
 with app.app_context():
     db.create_all()
@@ -151,11 +154,18 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/dashboard")
+@app.route("/dashboard", methods=['GET', 'POST'])
 @login_required
 def dashboard():
     books = Book.query.all()
-    return render_template("dashboard.html", username=current_user.username, books=books)
+    count = CartItem.query.count()
+    if request.method == 'POST':
+        book_id = request.form['book_id_cart']
+        new_cart = CartItem(book_id=book_id)
+        db.session.add(new_cart)
+        db.session.commit()
+        return redirect(url_for('dashboard'))
+    return render_template("dashboard.html", username=current_user.username, books=books, count=count)
 
 
 @app.route("/cart/<int:book_id>", methods=['POST'])
