@@ -70,9 +70,11 @@ class Book(db.Model):
 
 class CartItem(db.Model):
     __tablename__ = 'cartitems'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, unique=True,
+                   primary_key=True, nullable=True)
 
-    book_id = db.Column(db.Integer, db.ForeignKey('book.book_id'))
+    book_id = db.Column(db.Integer, db.ForeignKey(
+        'book.book_id'), nullable=True)
 
     def __repr__(self):
         return f"<Cart {self.book_id}>"
@@ -168,14 +170,15 @@ def dashboard():
     return render_template("dashboard.html", username=current_user.username, books=books, count=count)
 
 
-@app.route("/cart/<int:book_id>", methods=['POST'])
+@app.route("/cart")
 @login_required
-def add_to_cart(book_id):
-    book = Book.query.filter(Book.id == book_id)
-    cart_book = CartItem(book=book)
-    db.session.add(cart_book)
+def add_to_cart():
+    books = Book.query.filter(Book.book_id == CartItem.book_id)
+    book_id_rm = request.form['book_id_remove_cart']
+    remove_cart = CartItem(book_id=book_id_rm)
+    db.session.remove(remove_cart)
     db.session.commit()
-    return render_template("cart.html", book=book_id)
+    return render_template("cart.html", books=books)
 
 
 @app.route('/logout')

@@ -49,7 +49,6 @@
             <th>rating</th>
             <th>year</th>
             <th>price</th>
-            <th>Select</th>
         </thead>
         <div>{%for row in books%}
             <tbody>
@@ -63,15 +62,11 @@
                     <td>{{row.rating}}</td>
                     <td>{{row.year}}</td>
                     <td>{{row.price}}</td>
-                    <td><input type="checkbox" id="checkbox">
-
-                    </td>
                 </tr>
             </tbody>
             {%endfor%}
         </div>
     </table>
-
 </div>
 
 <!-- <h1>Test Home Page</h1> -->

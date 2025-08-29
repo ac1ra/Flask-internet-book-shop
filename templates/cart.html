@@ -9,13 +9,6 @@
         {%endfor%}
     </div>
 </div>
-<!-- <script>
-    function addToCart(productId) {
-        fetch('[your.local.host.]/cart/productId',
-            { method: 'POST' }
-        )
-    }
-</script> -->
 
 {%endblock%}
 {%block content%}
@@ -32,9 +25,8 @@
     <div>
         <p><a href="/"> <button type="button" style="width: 100%;">Back</button></a></p>
     </div>
-
+    <h2>Cart</h2>
     <table style="width: 100%;">
-
         <thead>
             <th>id</th>
             <th>title</th>
@@ -59,17 +51,15 @@
                     <td>{{row.rating}}</td>
                     <td>{{row.year}}</td>
                     <td>{{row.price}}</td>
-                    <td><button onclick="{{url_for('add_to_cart',book_id=row.book_id)}}" type="button">Add to
-                            cart</button>
-
-                    </td>
+                    <td><input type="checkbox" id="rm_select" value="{{row.book_id}}" name="book_id_remove_cart"></td>
                 </tr>
             </tbody>
             {%endfor%}
         </div>
     </table>
-
+    <form method="POST">
+        <button id="rm_select" name="book_id_remove_cart">Remove selected</button>
+    </form>
 </div>
 
-<!-- <h1>Test Home Page</h1> -->
 </div>{%endblock%}
