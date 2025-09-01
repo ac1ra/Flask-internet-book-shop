@@ -13,18 +13,17 @@
 {%endblock%}
 {%block content%}
 <div class="row-1">
-    <div class="block-birck" style="width: 50%;">Поиск:</div>
-    <div class="block-birck" style="width: 25%;"><a href="/login">Заказы:</a></div>
-    <div class="block-birck" style="width: 25%;"><a href="/register">Корзина:</a></div>
+    <div class="block-birck">Поиск:</div>
+    <div class="block-birck" style="width: 25%;"><a href="{{url_for('dashboard')}}">Заказы:</a></div>
 </div>
 <div class="row-2">
 
 </div>
 <div class="row-3">
 
-    <div>
+    <!-- <div>
         <p><a href="/"> <button type="button" style="width: 100%;">Back</button></a></p>
-    </div>
+    </div> -->
     <h2>Cart</h2>
     <table style="width: 100%;">
         <thead>
@@ -37,6 +36,7 @@
             <th>rating</th>
             <th>year</th>
             <th>price</th>
+            <th>Count</th>
             <th>Select</th>
         </thead>
         <div>{%for row in books%}
@@ -51,15 +51,24 @@
                     <td>{{row.rating}}</td>
                     <td>{{row.year}}</td>
                     <td>{{row.price}}</td>
-                    <td><input type="checkbox" id="rm_select" value="{{row.book_id}}" name="book_id_remove_cart"></td>
+                    <td>{{count_id}}</td>
+                    <td>
+                        <form method="POST">
+                            <button onclick={{row.book_id}} value="{{row.book_id}}"
+                                name="book_id_remove_cart">Remove</button>
+                        </form>
+                        <!-- <input type="checkbox" id="rm_select" value="{{row.book_id}}" name="book_id_remove_cart"> -->
+
+                    </td>
+
                 </tr>
             </tbody>
             {%endfor%}
         </div>
     </table>
-    <form method="POST">
+    <!-- <form method="POST">
         <button id="rm_select" name="book_id_remove_cart">Remove selected</button>
-    </form>
+    </form> -->
 </div>
 
 </div>{%endblock%}

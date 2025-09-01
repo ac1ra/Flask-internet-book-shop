@@ -13,9 +13,9 @@
 {%endblock%}
 {%block content%}
 <div class="row-1">
-    <div class="block-birck" style="width: 50%;">Поиск:</div>
-    <div class="block-birck" style="width: 50%;">Заказы:</div>
-    <div class="block-birck" style="width: 50%;"><a href="{{url_for('add_to_cart')}}">Корзина ({{count}}):</a></div>
+    <div class="block-birck">Поиск:</div>
+    <!-- <div class="block-birck" style="width: 50%;">Заказы:</div> -->
+    <div class="block-birck"><a href="{{url_for('add_to_cart')}}">Корзина ({{count}}):</a></div>
     <div class="block-birck"><a href="/logout.html">Выход</a></div>
 </div>
 <div class="row-2">
@@ -31,9 +31,9 @@
                     {{row.name_subgenre}}</button></a></p>
         {%endfor%}
     </div>
-    <div>
+    <!-- <div>
         <p><a href="/"> <button type="button" style="width: 100%;">Back</button></a></p>
-    </div>
+    </div> -->
 
     <table style="width: 100%;">
 

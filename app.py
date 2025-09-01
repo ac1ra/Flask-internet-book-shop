@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -68,7 +68,7 @@ class Book(db.Model):
         return f"<Book {self.title}>"
 
 
-class CartItem(db.Model):
+class CartItems(db.Model):
     __tablename__ = 'cartitems'
     id = db.Column(db.Integer, unique=True,
                    primary_key=True, nullable=True)
@@ -160,24 +160,36 @@ def login():
 @login_required
 def dashboard():
     books = Book.query.all()
-    count = CartItem.query.count()
+    count = CartItems.query.count()
     if request.method == 'POST':
         book_id = request.form['book_id_cart']
-        new_cart = CartItem(book_id=book_id)
+        new_cart = CartItems(book_id=book_id)
         db.session.add(new_cart)
         db.session.commit()
         return redirect(url_for('dashboard'))
     return render_template("dashboard.html", username=current_user.username, books=books, count=count)
 
 
-@app.route("/cart")
+@app.route("/cart", methods=['GET', 'POST'])
 @login_required
 def add_to_cart():
-    books = Book.query.filter(Book.book_id == CartItem.book_id)
-    book_id_rm = request.form['book_id_remove_cart']
-    remove_cart = CartItem(book_id=book_id_rm)
-    db.session.remove(remove_cart)
-    db.session.commit()
+    books = Book.query.filter(Book.book_id == CartItems.book_id)
+
+    objects = CartItems.query.all()
+    values_unique = {}
+    print(objects)
+    for item in objects:
+        if item.book_id in values_unique.items():
+            values_unique[item.book_id] = values_unique[item.book_id] + 1
+        else:
+            values_unique.update({item.book_id: 1})
+    print(values_unique)
+
+    if request.method == 'POST':
+        book_id_rm = request.form['book_id_remove_cart']
+        CartItems.query.filter_by(book_id=book_id_rm).delete()
+        db.session.commit()
+        return redirect(url_for('add_to_cart'))
     return render_template("cart.html", books=books)
 
 
