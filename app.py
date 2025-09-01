@@ -80,6 +80,22 @@ class CartItems(db.Model):
         return f"<Cart {self.book_id}>"
 
 
+class Order(db.Model):
+    __tablename__ = 'order'
+    id = db.Column(db.Integer, unique=True,
+                   primary_key=True, nullable=True)
+    book_id = db.Column(db.Integer, db.ForeignKey(
+        'cartitems.book_id'), nullable=True)
+    phone = db.Column()
+    order_way = db.Column(db.String(220), nullable=True)
+    message_purchase = db.Column(db.String(220), nullable=True)
+    summ_order = db.Column(db.Integer, nullable=True)
+    delivery_date = db.Column(db.String(220), nullable=True)
+
+    def __repr__(self):
+        return f"<Order {self.book_id}>"
+
+
 with app.app_context():
     db.create_all()
 
@@ -191,6 +207,20 @@ def add_to_cart():
         db.session.commit()
         return redirect(url_for('add_to_cart'))
     return render_template("cart.html", books=books)
+
+
+@app.route("/create_order", methods=["GET", "POST"])
+@login_required
+def create_order():
+    if request.method == "POST":
+        phone = request.form.get("phone")
+        order_way = request.form.get("order_way")
+        message_purchase = request.form.get("message_purchase")
+        summ_order = request.form.get("summ_order")
+        delivery_date = request.form.get("delivery_date")
+        # CartItems.query.delete()
+        return redirect(url_for("dashboard"))
+    return render_template("create_order.html")
 
 
 @app.route('/logout')
