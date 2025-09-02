@@ -15,6 +15,9 @@
 <div class="row-1">
     <div class="block-birck">Поиск:</div>
     <div class="block-birck" style="width: 25%;"><a href="{{url_for('dashboard')}}">Заказы:</a></div>
+    <div class="block-birck" style="width: 25%; background-color: greenyellow;"><a
+            href="{{url_for('create_order')}}">Оформить
+            заказ</a></div>
 </div>
 <div class="row-2">
 
@@ -27,7 +30,7 @@
     <h2>Cart</h2>
     <table style="width: 100%;">
         <thead>
-            <th>id</th>
+            <th style="width: 25px;">id</th>
             <th>title</th>
             <th>author</th>
             <th>genre</th>
@@ -36,13 +39,13 @@
             <th>rating</th>
             <th>year</th>
             <th>price</th>
-            <th>Count</th>
+            <th style="width: 40px;">Count</th>
             <th>Select</th>
         </thead>
         <div>{%for row in books%}
             <tbody>
                 <tr>
-                    <td>{{row.book_id}}</td>
+                    <td style="width: 25px;">{{row.book_id}}</td>
                     <td>{{row.title}}</td>
                     <td>{{row.author}}</td>
                     <td>{{row.genre}}</td>
@@ -51,7 +54,7 @@
                     <td>{{row.rating}}</td>
                     <td>{{row.year}}</td>
                     <td>{{row.price}}</td>
-                    <td>{{count_id}}</td>
+                    <td style="width: 40px;">{{count_id}}</td>
                     <td>
                         <form method="POST">
                             <button onclick={{row.book_id}} value="{{row.book_id}}"

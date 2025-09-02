@@ -1,5 +1,7 @@
 h1 {
     color: green;
+    text-align: center;
+
 }
 
 .error {
@@ -59,8 +61,9 @@ table {
 table th {
     font-weight: bold;
     padding: 5px;
-    /* background: #efefef; */
+    background: #efefef;
     /* border: 1px solid #dddddd; */
+
 
 }
 

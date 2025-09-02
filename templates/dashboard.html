@@ -14,7 +14,7 @@
 {%block content%}
 <div class="row-1">
     <div class="block-birck">Поиск:</div>
-    <!-- <div class="block-birck" style="width: 50%;">Заказы:</div> -->
+    <div class="block-birck" style="width: 50%;">Заказы</div>
     <div class="block-birck"><a href="{{url_for('add_to_cart')}}">Корзина ({{count}}):</a></div>
     <div class="block-birck"><a href="/logout.html">Выход</a></div>
 </div>
@@ -38,7 +38,7 @@
     <table style="width: 100%;">
 
         <thead>
-            <th>id</th>
+            <th style="width: 25px;">id</th>
             <th>title</th>
             <th>author</th>
             <th>genre</th>
@@ -51,7 +51,7 @@
         <div>{%for row in books%}
             <tbody>
                 <tr>
-                    <td>{{row.book_id}}</td>
+                    <td style="width: 25px;">{{row.book_id}}</td>
                     <td>{{row.title}}</td>
                     <td>{{row.author}}</td>
                     <td>{{row.genre}}</td>
