@@ -213,7 +213,6 @@ def add_to_cart():
 def create_order():
     books_orders = Book.query.filter(Book.book_id == CartItems.book_id)
     sum_list = []
-    count = 1
     for book in books_orders:
         sum_list.append(book.price)
         print(book.title)
@@ -230,6 +229,13 @@ def create_order():
         db.session.commit()
         return redirect(url_for("dashboard"))
     return render_template("create_order.html", summ=sum(sum_list))
+
+
+@app.route('/order')
+@login_required
+def orderview():
+    orders = Order.query.all()
+    return render_template("orderview.html", orders=orders)
 
 
 @app.route('/logout')

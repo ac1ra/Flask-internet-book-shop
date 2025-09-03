@@ -14,7 +14,7 @@
 {%block content%}
 <div class="row-1">
     <div class="block-birck">Поиск:</div>
-    <div class="block-birck" style="width: 50%;">Заказы</div>
+    <div class="block-birck" style="width: 50%;"><a href="{{url_for('orderview')}}">Заказы</a></div>
     <div class="block-birck"><a href="{{url_for('add_to_cart')}}">Корзина ({{count}}):</a></div>
     <div class="block-birck"><a href="{{url_for('logout')}}">Выход</a></div>
 </div>

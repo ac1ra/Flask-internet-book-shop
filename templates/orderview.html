@@ -1,0 +1,55 @@
+{%extends 'base.html'%}
+{%block title%}Trash page{%endblock%}
+{%block content_0%}
+<div class="block-cataloge">Каталог:
+    <!-- <div>
+        {%for item in genres%}
+        <p><a href="{{url_for('home',id=item.genre_id)}}"> <button type="button"
+                    style="width: 100%;">{{item.name_genre}}</button></a></p>
+        {%endfor%}
+    </div> -->
+</div>
+
+{%endblock%}
+{%block content%}
+<div class="row-1">
+    <div class="block-birck">Поиск:</div>
+    <div class="block-birck" style="width: 25%;"><a href="{{url_for('dashboard')}}">Каталог:</a></div>
+    <!-- <div class="block-birck" style="width: 25%; background-color: greenyellow;"><a
+            href="{{url_for('create_order')}}">Оформить
+            заказ</a></div> -->
+</div>
+<div class="row-2">
+
+</div>
+<div class="row-3">
+
+    <h2>Ваши заказы:</h2>
+    <table style="width: 100%;">
+        <thead>
+            <th style="width: 25px;">id</th>
+            <th>phone</th>
+            <th>order_way</th>
+            <th>message_purchase</th>
+            <th>summ_order</th>
+            <th>delivery_date</th>
+        </thead>
+        <div>{%for item in orders%}
+            <tbody>
+                <tr>
+                    <td style="width: 25px;">{{item.id}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>{{item.order_way}}</td>
+                    <td>{{item.message_purchase}}</td>
+                    <td>{{item.summ_order}}</td>
+                    <td>{{item.delivery_date}}</td>
+
+
+                </tr>
+            </tbody>
+            {%endfor%}
+        </div>
+    </table>
+</div>
+
+</div>{%endblock%}
