@@ -6,15 +6,14 @@
 <p class="error">{{error}}</p>
 {% endif%}
 <form action="/create_order" class="block-login" method="POST">
-    <label for="phone">Phone:</label>
+    <label for="phone">Номер телефона:</label>
     <input type="text" name="phone" required />
     <label for="order_way">Способ доставки:</label>
     <input type="text" name="order_way" required />
     <label for="message_purchase">Примечание:</label>
-    <input type="text" name="message_purchase" required />
+    <input style="height: 50px;" type="text" name="message_purchase" required />
 
-    <label for="summ_order">Сумма заказа:</label>
-    <input type="text" name="summ_order" required />
+    <label for="summ_order">Сумма заказа:</label><b>{{summ}}₽</b>
     <label for="delivery_date">Дата доставки:</label>
     <input type="text" name="delivery_date" required />
     <button type="submit">Оформить заказ</button>

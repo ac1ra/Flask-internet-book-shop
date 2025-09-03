@@ -84,16 +84,16 @@ class Order(db.Model):
     __tablename__ = 'order'
     id = db.Column(db.Integer, unique=True,
                    primary_key=True, nullable=True)
-    book_id = db.Column(db.Integer, db.ForeignKey(
-        'cartitems.book_id'), nullable=True)
-    phone = db.Column()
+    # book_id = db.Column(db.Integer, db.ForeignKey(
+    #     'cartitems.book_id'), nullable=True)
+    phone = db.Column(db.String(220), nullable=True)
     order_way = db.Column(db.String(220), nullable=True)
     message_purchase = db.Column(db.String(220), nullable=True)
     summ_order = db.Column(db.Integer, nullable=True)
     delivery_date = db.Column(db.String(220), nullable=True)
 
     def __repr__(self):
-        return f"<Order {self.book_id}>"
+        return f"<Order {self.order_way}>"
 
 
 with app.app_context():
@@ -105,7 +105,6 @@ def insert_data(json_file):
         try:
             data = json.load(file)
             for item in data:
-                print(item['title'], type(item['title']))
                 cursor.execute('''
                 INSERT OR IGNORE INTO book(book_id,title,author,price,genre,cover,description,rating,year) VALUES(?,?,?,?,?,?,?,?,?)''', (item['id'], item['title'], item['author'], item['price'], item['genre'], item['cover'], item['description'], item['rating'], item['year']))
             conn.commit()
@@ -191,15 +190,15 @@ def dashboard():
 def add_to_cart():
     books = Book.query.filter(Book.book_id == CartItems.book_id)
 
-    objects = CartItems.query.all()
-    values_unique = {}
-    print(objects)
-    for item in objects:
-        if item.book_id in values_unique.items():
-            values_unique[item.book_id] = values_unique[item.book_id] + 1
-        else:
-            values_unique.update({item.book_id: 1})
-    print(values_unique)
+    # objects = CartItems.query.all()
+    # values_unique = {}
+    # print(objects)
+    # for item in objects:
+    #     if item.book_id in values_unique.items():
+    #         values_unique[item.book_id] = values_unique[item.book_id] + 1
+    #     else:
+    #         values_unique.update({item.book_id: 1})
+    # print(values_unique)
 
     if request.method == 'POST':
         book_id_rm = request.form['book_id_remove_cart']
@@ -212,22 +211,32 @@ def add_to_cart():
 @app.route("/create_order", methods=["GET", "POST"])
 @login_required
 def create_order():
+    books_orders = Book.query.filter(Book.book_id == CartItems.book_id)
+    sum_list = []
+    count = 1
+    for book in books_orders:
+        sum_list.append(book.price)
+        print(book.title)
+
     if request.method == "POST":
         phone = request.form.get("phone")
         order_way = request.form.get("order_way")
         message_purchase = request.form.get("message_purchase")
-        summ_order = request.form.get("summ_order")
         delivery_date = request.form.get("delivery_date")
-        # CartItems.query.delete()
+        CartItems.query.delete()
+        new_order = Order(phone=phone, order_way=order_way, message_purchase=message_purchase,
+                          summ_order=sum(sum_list), delivery_date=delivery_date)
+        db.session.add(new_order)
+        db.session.commit()
         return redirect(url_for("dashboard"))
-    return render_template("create_order.html")
+    return render_template("create_order.html", summ=sum(sum_list))
 
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect("/login")
+    return redirect(url_for("logout"))
 
 
 @app.route('/catalog')
