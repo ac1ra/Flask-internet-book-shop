@@ -4,6 +4,8 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import json
+import random
+import datetime
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
@@ -84,8 +86,7 @@ class Order(db.Model):
     __tablename__ = 'order'
     id = db.Column(db.Integer, unique=True,
                    primary_key=True, nullable=True)
-    # book_id = db.Column(db.Integer, db.ForeignKey(
-    #     'cartitems.book_id'), nullable=True)
+    ordernumber = db.Column(db.Integer, nullable=True)
     phone = db.Column(db.String(220), nullable=True)
     order_way = db.Column(db.String(220), nullable=True)
     message_purchase = db.Column(db.String(220), nullable=True)
@@ -218,17 +219,18 @@ def create_order():
         print(book.title)
 
     if request.method == "POST":
+        ordernumber = request.form.get("ordernumber")
         phone = request.form.get("phone")
         order_way = request.form.get("order_way")
         message_purchase = request.form.get("message_purchase")
         delivery_date = request.form.get("delivery_date")
         CartItems.query.delete()
-        new_order = Order(phone=phone, order_way=order_way, message_purchase=message_purchase,
-                          summ_order=sum(sum_list), delivery_date=delivery_date)
+        new_order = Order(ordernumber=random.randrange(1000, 100000), phone=phone, order_way=order_way, message_purchase=message_purchase,
+                          summ_order=sum(sum_list), delivery_date=datetime.datetime.now())
         db.session.add(new_order)
         db.session.commit()
         return redirect(url_for("dashboard"))
-    return render_template("create_order.html", summ=sum(sum_list))
+    return render_template("create_order.html", ordernumber=random.randrange(1000, 100000), summ=sum(sum_list), delivery_date=datetime.datetime.now())
 
 
 @app.route('/order')
